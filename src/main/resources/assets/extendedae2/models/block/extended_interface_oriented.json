@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "extendedae2:block/extended_interface",
+    "down": "extendedae2:block/extended_interface_alternate",
+    "up": "extendedae2:block/extended_interface",
+    "north": "extendedae2:block/extended_interface_alternate_arrow",
+    "south": "extendedae2:block/extended_interface_alternate_arrow",
+    "east": "extendedae2:block/extended_interface_alternate_arrow",
+    "west": "extendedae2:block/extended_interface_alternate_arrow"
+  }
+}

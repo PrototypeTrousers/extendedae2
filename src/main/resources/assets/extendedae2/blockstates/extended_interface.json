@@ -1,0 +1,109 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "omnidirectional": true
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "north"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "south"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented",
+        "x": -90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "up"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented"
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "down"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented",
+        "x": 180
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "east"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented",
+        "x": 90,
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "AND": [
+          {
+            "omnidirectional": false
+          },
+          {
+            "facing": "west"
+          }
+        ]
+      },
+      "apply": {
+        "model": "extendedae2:block/extended_interface_oriented",
+        "x": 90,
+        "y": -90
+      }
+    }
+  ]
+}
