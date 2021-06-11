@@ -35,6 +35,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import org.lwjgl.glfw.GLFW;
 import trousers.extendedae2.container.implementations.ExtendedInterfaceTerminalContainer;
+import trousers.extendedae2.core.sync.network.EAENetworkHandler;
 
 import java.util.*;
 

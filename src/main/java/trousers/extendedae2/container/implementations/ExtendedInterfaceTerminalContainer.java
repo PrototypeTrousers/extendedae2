@@ -9,15 +9,11 @@ import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
 import appeng.container.AEBaseContainer;
 import appeng.core.AELog;
-import appeng.core.sync.network.NetworkHandler;
-import appeng.core.sync.packets.InterfaceTerminalPacket;
 import appeng.helpers.DualityInterface;
 import appeng.helpers.IInterfaceHost;
 import appeng.helpers.InventoryAction;
 import appeng.items.misc.EncodedPatternItem;
-import appeng.parts.misc.InterfacePart;
 import appeng.tile.inventory.AppEngInternalInventory;
-import appeng.tile.misc.InterfaceTileEntity;
 import appeng.util.InventoryAdaptor;
 import appeng.util.helpers.ItemHandlerUtil;
 import appeng.util.inv.AdaptorItemHandler;
@@ -33,6 +29,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.items.IItemHandler;
+import trousers.extendedae2.core.sync.network.EAENetworkHandler;
+import trousers.extendedae2.core.sync.packets.ExtendedInterfaceTerminalPacket;
 import trousers.extendedae2.parts.reporting.ExtendedInterfaceTerminalPart;
 import trousers.extendedae2.parts.reporting.misc.ExtendedInterfacePart;
 import trousers.extendedae2.tile.misc.ExtendedInterfaceTileEntity;
@@ -78,8 +76,8 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
             visitInterfaceHosts(grid, ExtendedInterfaceTileEntity.class, state);
             visitInterfaceHosts(grid, ExtendedInterfacePart.class, state);
         }
-
-        InterfaceTerminalPacket packet;
+    
+        ExtendedInterfaceTerminalPacket packet;
         if (state.total != this.diList.size() || state.forceFullUpdate) {
             packet = this.createFullUpdate(grid);
         } else {
@@ -87,7 +85,7 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
         }
 
         if (packet != null) {
-            NetworkHandler.instance().sendTo(packet, (ServerPlayerEntity) this.getPlayerInventory().player);
+            EAENetworkHandler.instance().sendTo(packet, (ServerPlayerEntity) this.getPlayerInventory().player);
         }
     }
 
@@ -235,15 +233,15 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
         this.updateHeld(player);
     }
 
-    private InterfaceTerminalPacket createFullUpdate(@Nullable IGrid grid) {
+    private ExtendedInterfaceTerminalPacket createFullUpdate(@Nullable IGrid grid) {
         this.byId.clear();
         this.diList.clear();
 
         if (grid == null) {
-            return new InterfaceTerminalPacket(true, new CompoundNBT());
+            return new ExtendedInterfaceTerminalPacket(true, new CompoundNBT());
         }
 
-        for (final IGridNode gn : grid.getMachines(InterfaceTileEntity.class)) {
+        for (final IGridNode gn : grid.getMachines(ExtendedInterfaceTileEntity.class)) {
             final IInterfaceHost ih = (IInterfaceHost) gn.getMachine();
             final DualityInterface dual = ih.getInterfaceDuality();
             if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.YES) {
@@ -251,7 +249,7 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
             }
         }
 
-        for (final IGridNode gn : grid.getMachines(InterfacePart.class)) {
+        for (final IGridNode gn : grid.getMachines(ExtendedInterfacePart.class)) {
             final IInterfaceHost ih = (IInterfaceHost) gn.getMachine();
             final DualityInterface dual = ih.getInterfaceDuality();
             if (gn.isActive() && dual.getConfigManager().getSetting(Settings.INTERFACE_TERMINAL) == YesNo.YES) {
@@ -265,10 +263,10 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
             this.byId.put(inv.serverId, inv);
             this.addItems(data, inv, 0, inv.server.getSlots());
         }
-        return new InterfaceTerminalPacket(true, data);
+        return new ExtendedInterfaceTerminalPacket(true, data);
     }
 
-    private InterfaceTerminalPacket createIncrementalUpdate() {
+    private ExtendedInterfaceTerminalPacket createIncrementalUpdate() {
         CompoundNBT data = null;
         for (final Map.Entry<IInterfaceHost, InvTracker> en : this.diList.entrySet()) {
             final InvTracker inv = en.getValue();
@@ -282,7 +280,7 @@ public final class ExtendedInterfaceTerminalContainer extends AEBaseContainer {
             }
         }
         if (data != null) {
-            return new InterfaceTerminalPacket(false, data);
+            return new ExtendedInterfaceTerminalPacket(false, data);
         }
         return null;
     }

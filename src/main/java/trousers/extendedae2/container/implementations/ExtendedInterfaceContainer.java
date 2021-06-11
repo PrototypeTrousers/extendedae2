@@ -57,7 +57,7 @@ public class ExtendedInterfaceContainer extends UpgradeableContainer {
 
     @Override
     public int availableUpgrades() {
-        return 1;
+        return 4;
     }
 
     @Override

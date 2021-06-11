@@ -3,6 +3,7 @@ package trousers.extendedae2;
 import appeng.api.IAEAddon;
 import appeng.api.IAppEngApi;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import trousers.extendedae2.core.sync.network.EAENetworkHandler;
 import trousers.extendedae2.registry.ModScreens;
 
 import java.util.stream.Collectors;
@@ -46,8 +48,9 @@ public class ExtendedAE2 implements IAEAddon {
         // some preinit code
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        EAENetworkHandler.init(new ResourceLocation(MODID, "main"));
     }
-
+    
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().getProfileProperties());
